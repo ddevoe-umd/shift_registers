@@ -1,15 +1,11 @@
 # LEDdisplay class
-# Extends Shifter class to use shift register for control
 
 import time
-import random
-import RPi.GPIO as GPIO
-
-GPIO.setmode(GPIO.BCM)
-
-from shifter import Shifter
+from shifter import Shifter    # extend by composition
 
 class LEDdisplay():
+
+ 'Class for controlling a 7-segment LED display'
 
   numbers = [ 
     0b11111100, # 0
@@ -25,22 +21,6 @@ class LEDdisplay():
 
   def __init__(self, data, latch, clock):
     self.shifter = Shifter(data, latch, clock)
-
+ 
   def setNumber(self, num):  # display a given number
-    self.shifter.shiftByte(~LEDdisplay.numbers[num])
-    self.shifter.ping(self.shifter.latchPin)
-
-  def setSinglePin(self, pinNum):
-    # new method to allow a single pin to be set high
-    # with all other register output pins low
-    for i in range(1,9):
-      state = 0 if i == pinNum else 1
-      GPIO.output(self.shifter.dataPin, state)
-      self.shifter.ping(self.shifter.clockPin)
-    self.shifter.ping(self.shifter.latchPin)
-
-  def randomPins(self):
-    for i in range(8):
-      GPIO.output(self.shifter.dataPin, random.randint(0,1))
-      self.shifter.ping(self.shifter.clockPin)
-    self.shifter.ping(self.shifter.latchPin)
+    self.shifter.shiftByte(LEDdisplay.numbers[num])

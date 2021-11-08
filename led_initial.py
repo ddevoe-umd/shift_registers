@@ -16,7 +16,8 @@ pattern = 0b01100110     # pattern for "4"
 # one bit at a time, pinging the clock each time:
 mask = 1                                # bit mask
 for i in range(8):                      # 8 bits in pattern
-  if (pattern & mask == 0): # is masked bit off?
+  if (pattern & mask == 0): # is masked bit off (if common anode)?
+  #if (pattern & mask):     # if common cathode
     GPIO.output(dataPin, 1)
   else:
     GPIO.output(dataPin, 0)

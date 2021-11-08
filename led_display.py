@@ -5,7 +5,7 @@ from shifter import Shifter    # extend by composition
 
 class LEDdisplay():
 
- 'Class for controlling a 7-segment LED display'
+  'Class for controlling a 7-segment LED display'
 
   numbers = [ 
     0b11111100, # 0
